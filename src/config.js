@@ -52,6 +52,15 @@ import ScenePreviewCameraNodeEditor from "./ui/properties/ScenePreviewCameraNode
 import MediaFrameNode from "./editor/nodes/MediaFrameNode";
 import MediaFrameNodeEditor from "./ui/properties/MediaFrameNodeEditor";
 
+import FrameTriggerNode from "./editor/nodes/FrameTriggerNode";
+import FrameTriggerNodeEditor from "./ui/properties/FrameTriggerNodeEditor";
+
+import BottleNode from "./editor/nodes/BottleNode";
+import BottleNodeEditor from "./ui/properties/BottleNodeEditor";
+
+//import ButtonNode from "./editor/nodes/ButtonNode";
+//import ButtonNodeEditor from "./ui/properties/ButtonNodeEditor";
+
 import SketchfabSource from "./ui/assets/sources/SketchfabSource";
 import PolySource from "./ui/assets/sources/PolySource";
 import BingImagesSource from "./ui/assets/sources/BingImagesSource";
@@ -91,6 +100,9 @@ export function createEditor(api, settings) {
   editor.registerNode(SimpleWaterNode, SimpleWaterNodeEditor);
   editor.registerNode(ScenePreviewCameraNode, ScenePreviewCameraNodeEditor);
   editor.registerNode(MediaFrameNode, MediaFrameNodeEditor);
+
+  editor.registerNode(BottleNode, BottleNodeEditor);
+  editor.registerNode(FrameTriggerNode, FrameTriggerNodeEditor);
 
   editor.registerSource(new ElementsSource(editor));
   editor.registerSource(new MyAssetsSource(editor));

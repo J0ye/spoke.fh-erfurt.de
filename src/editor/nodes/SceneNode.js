@@ -239,6 +239,8 @@ export default class SceneNode extends EditorNodeMixin(Scene) {
         }
       }
 
+
+
       if (!EntityNodeConstructor) {
         throw new Error(`No node constructor found for entity "${entity.name}"`);
       }
