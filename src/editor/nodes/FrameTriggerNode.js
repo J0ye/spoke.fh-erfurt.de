@@ -13,6 +13,7 @@ import EditorNodeMixin from "./EditorNodeMixin";
 export const TriggerType = {
   TELEPORT: "teleport",
   VISIBILITY: "visibility",
+  SCALE: "Scale",
   SWITCH: "switch active",
   MEGAPHONE: "megaphone",
   ROOM: "Change Room",
@@ -33,6 +34,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
     this.triggerType = TriggerType.MEGAPHONE;
     this.target = null;
     this.targetName = null;
+    this.size = 1;
     this.cMask = 4;
     this.channel = 1;
     this.newRoomUrl = "";
@@ -118,6 +120,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
     this.triggerType = source.triggerType;
     this.target = source.target;
     this.targetName = source.targetName;
+    this.size = source.size;
     this.cMask = source.cMask;
     this.channel = source.channel;
     this.newRoomUrl = source.newRoomUrl;
@@ -133,6 +136,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
         target: this.target,
         targetID: this.target,
         targetName: this.targetName,
+        size: this.size,
         cMask: this.cMask,
         channel: this.channel,
         newRoomUrl: this.newRoomUrl,
@@ -147,6 +151,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
     node.triggerType = props.triggerType;
     node.target = props.target;
     node.targetName = props.targetName;
+    node.size = props.size;
     node.cMask = props.cMask;
     node.channel = props.channel;
     node.newRoomUrl = props.newRoomUrl;
@@ -163,6 +168,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
       target: this.gltfIndexForUUID(this.target),
       targetID: this.target,
       targetName: this.targetName,
+      size: this.size,
       cMask: this.cMask,
       channel: this.channel,
       newRoomUrl: this.newRoomUrl,

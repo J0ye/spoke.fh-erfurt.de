@@ -1,45 +1,43 @@
 import { Object3D, PlaneBufferGeometry, MeshBasicMaterial, Mesh, DoubleSide } from "three";
-import TriggerType from "./FrameTriggerNode"
 import EditorNodeMixin from "./EditorNodeMixin";
-import linkIconUrl from "../../assets/link-icon.png";
+import pink from "../../assets/pink.png";
 import loadTexture from "../utils/loadTexture";
 
-let linkHelperTexture = null;
+let buttonTexture = null;
+
+export const ButtonType = {
+  TELEPORT: "teleport",
+  VISIBILITY: "visibility",
+  MEGAPHONE: "megaphone",
+  ROOM: "Change Room"
+};
 
 export default class ButtonNode extends EditorNodeMixin(Object3D) {
-  static legacyComponentName = "link";
+  static componentName = "action-button";
 
-  static nodeName = "Custom Button";
+  static nodeName = "Action Button";
 
   static async load() {
-    linkHelperTexture = await loadTexture(linkIconUrl);
-  }
-
-  static async deserialize(editor, json) {
-    const node = await super.deserialize(editor, json);
-
-    const props = json.components.find(c => c.name === "button").props;
-
-    node.text = props.text;
-
-    return node;
+    buttonTexture = await loadTexture(pink);
   }
 
   constructor(editor) {
     super(editor);
 
-    this.text = "Button";
-
-    // Button effects
-    this.triggerType = TriggerType.MEGAPHONE;
+    this.buttonLabel = "Button";
+    this.isSwitchButton = true;
+    this.buttonStatus = false;
+    this.buttonType = ButtonType.VISIBILITY;
     this.target = null;
-    this.switchActive = true;
+    this.targetName = "";
+    this.newRoomUrl = "";
 
     const geometry = new PlaneBufferGeometry();
     const material = new MeshBasicMaterial();
-    material.map = linkHelperTexture;
+    geometry.scale(1, 0.3, 0);
+    material.map = buttonTexture;
     material.side = DoubleSide;
-    material.transparent = true;
+    material.transparent = false;
     this.helper = new Mesh(geometry, material);
     this.helper.layers.set(1);
     this.add(this.helper);
@@ -60,36 +58,60 @@ export default class ButtonNode extends EditorNodeMixin(Object3D) {
       }
     }
 
-    this.text = source.text;
-
-    this.triggerType = source.triggerType;
+    this.buttonLabel = source.buttonLabel;
+    this.buttonType = source.buttonType;
+    this.buttonStatus = source.buttonStatus;
     this.target = source.target;
-    this.switchActive = source.switchActive;
+    this.targetName = source.targetName;
+    this.isSwitchButton = source.isSwitchButton;
+    this.newRoomUrl = source.newRoomUrl;
 
     return this;
   }
 
   serialize() {
     return super.serialize({
-      link: {
+      "action-button": {
         href: this.href,
-        triggerType: this.triggerType,
+        buttonLabel: this.buttonLabel,
+        buttonType: this.buttonType,
+        buttonStatus: this.buttonStatus,
         target: this.target,
-        switchActive: this.switchActive
+        targetName: this.targetName,
+        newRoomUrl: this.newRoomUrl,
+        isSwitchButton: this.isSwitchButton
       }
     });
+  }
+
+  static async deserialize(editor, json) {
+    const node = await super.deserialize(editor, json);
+    const props = json.components.find(c => c.name === "action-button").props;
+    node.buttonType = props.buttonType;
+    node.buttonLabel = props.buttonLabel;
+    node.buttonStatus = props.buttonStatus;
+    node.target = props.target;
+    node.targetName = props.targetName;
+    node.newRoomUrl = props.newRoomUrl;
+    node.isSwitchButton = props.isSwitchButton;
+    return node;
   }
 
   prepareForExport() {
     super.prepareForExport();
     this.remove(this.helper);
-    this.addGLTFComponent("button", {
+    this.addGLTFComponent("action-button", {
       href: this.href,
-      triggerType: this.triggerType,
-      target: this.gltfIndexForUUID(this.target),
-      targetID: this.target,
-      switchActive: this.switchActive
+      buttonType: this.buttonType,
+      buttonLabel: this.buttonLabel,
+      buttonStatus: this.buttonStatus,
+      button: this.target,
+      targetName: this.targetName,
+      newRoomUrl: this.newRoomUrl,
+      isSwitchButton: this.isSwitchButton
     });
+    console.log("This:");
+    console.log(this);
     this.addGLTFComponent("networked", {
       id: this.uuid
     });

@@ -6,13 +6,13 @@ import InputGroup from "../inputs/InputGroup";
 import SelectInput from "../inputs/SelectInput";
 import BooleanInput from "../inputs/BooleanInput";
 import StringInput from "../inputs/StringInput";
-import { TriggerType } from "../../editor/nodes/FrameTriggerNode";
+import { ButtonType } from "../../editor/nodes/ButtonNode";
 
-const triggerTypeOptions = [
-  { label: "Megaphone", value: TriggerType.MEGAPHONE },
-  { label: "Teleport", value: TriggerType.TELEPORT },
-  { label: "Visibility (debug)", value: TriggerType.VISIBILITY },
-  { label: "Switch active", value: TriggerType.SWITCH }
+const ButtonTypeOptions = [
+  { label: "Megaphone", value: ButtonType.MEGAPHONE },
+  { label: "Teleport", value: ButtonType.TELEPORT },
+  { label: "Visibility", value: ButtonType.VISIBILITY },
+  { label: "Change Room", value: ButtonType.ROOM }
 ];
 
 export default class ButtonNodeEditor extends Component {
@@ -35,28 +35,41 @@ export default class ButtonNodeEditor extends Component {
   }
 
 
-  onChangeTriggerType = triggerType => {
-    this.props.editor.setPropertiesSelected({ triggerType });
+  onChangeButtonType = buttonType => {
+    this.props.editor.setPropertiesSelected({ buttonType });
   };
 
-  onChangeText = text => {
-    this.props.editor.setPropertiesSelected({ text });
+  onChangeButtonLabel = buttonLabel => {
+    this.props.editor.setPropertiesSelected({ buttonLabel });
   };
 
   onChangeTarget = target => {
-    this.props.editor.setPropertiesSelected({
-      target,
-      enterComponent: null,
-      enterProperty: null,
-      enterValue: null,
-      leaveComponent: null,
-      leaveProperty: null,
-      leaveValue: null
-    });
+    this.props.editor.setPropertiesSelected({ target });
+    let targetName;
+    for (let i = 0; i < this.state.options.length; i++) {
+      if (this.state.options[i].value === target) {
+        targetName = this.state.options[i].label;
+        console.log("Target: ", targetName);
+      }
+    }
+    this.props.editor.setPropertiesSelected({ targetName });
   };
 
   onChangeSwitchActive = switchActive => {
     this.props.editor.setPropertiesSelected({ switchActive });
+  };
+
+  onChangeIsSwitchButton = isSwitchButton => {
+    this.props.editor.setPropertiesSelected({ isSwitchButton });
+  };
+
+  onChangeButtonStatus = buttonStatus => {
+    this.props.editor.setPropertiesSelected({ buttonStatus });
+  };
+
+  onChangeRoomURL = newRoomUrl => {
+    this.props.editor.setPropertiesSelected({ newRoomUrl });
+    console.log("URL is:", newRoomUrl);
   };
 
   componentDidMount() {
@@ -82,13 +95,30 @@ export default class ButtonNodeEditor extends Component {
 
     return (
       <NodeEditor description={ButtonNodeEditor.description} {...this.props}>
-        <InputGroup name="Button Text" info="This text will be displayed on the button later.">
-          <StringInput value={node.text} onChange={this.onChangeText}></StringInput>
+        <InputGroup name="Button Label" info="This text will be displayed on the button later.">
+          <StringInput value={node.buttonLabel} onChange={this.onChangeButtonLabel}></StringInput>
         </InputGroup>
-        <InputGroup name="Trigger Types" info="Define the action of this triggered">
-          <SelectInput options={triggerTypeOptions} value={node.triggerType} onChange={this.onChangeTriggerType} />
+        <InputGroup name="Flip Switch"
+          info="The button will be turned into a switch, if it is marked as an flip switch.">
+          <BooleanInput value={node.isSwitchButton} onChange={this.onChangeIsSwitchButton} />
         </InputGroup>
-        {node.triggerType !== TriggerType.MEGAPHONE && (
+        {node.isSwitchButton === true && (
+          <InputGroup name="Switch Status"
+            info="Determine the state of the switch at start">
+            <BooleanInput value={node.buttonStatus} onChange={this.onChangeButtonStatus} />
+          </InputGroup>
+        )}
+        <InputGroup name="Button Type" info="Define the action of this button">
+          <SelectInput options={ButtonTypeOptions} value={node.buttonType} onChange={this.onChangeButtonType} />
+        </InputGroup>
+        {node.buttonType === ButtonType.ROOM && (
+          <InputGroup
+            name="Target Room URL"
+            info="Define the URL of the target room this button is supposed to change to.">
+            <StringInput value={node.newRoomUrl} required={true} onChange={this.onChangeRoomURL} />
+          </InputGroup>
+        )}
+        {node.buttonType !== ButtonType.MEGAPHONE && node.buttonType !== ButtonType.ROOM && (
           // do not ask for a target if it is a megphone trigger
           <>
             <InputGroup name="Target">
@@ -101,11 +131,11 @@ export default class ButtonNodeEditor extends Component {
                 disabled={multiEdit}
               />
             </InputGroup>
-            {node.triggerType === TriggerType.SWITCH && (
+            {node.ButtonType === ButtonType.VISIBILITY && (
               // only ask for a switch, if the trigger type is a switch object active type 
               <>
                 <InputGroup name="New state of target"
-                  info="The state of the target will be set to either active (true) or inactive (false), when the trigger is activated.">
+                  info="The state of the target will be set to either active (true) or inactive (false), when the button is pressed.">
                   <BooleanInput value={node.switchActive} onChange={this.onChangeSwitchActive} />
                 </InputGroup>
               </>

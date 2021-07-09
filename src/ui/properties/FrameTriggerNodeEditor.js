@@ -15,6 +15,7 @@ const triggerTypeOptions = [
   { label: "Megaphone", value: TriggerType.MEGAPHONE },
   { label: "Teleport", value: TriggerType.TELEPORT },
   { label: "Change Room", value: TriggerType.ROOM },
+  { label: "Scale", value: TriggerType.SCALE },
   { label: "Visibility (debug)", value: TriggerType.VISIBILITY },
   { label: "Switch active", value: TriggerType.SWITCH },
   { label: "Snap", value: TriggerType.SNAP },
@@ -80,6 +81,11 @@ export default class FrameTriggerNodeEditor extends Component {
     console.log("channel is:", channel);
   };
 
+  onChangeScale = size => {
+    this.props.editor.setPropertiesSelected({ size });
+    console.log("new size  is:", size);
+  };
+
   onChangeRoomURL = newRoomUrl => {
     this.props.editor.setPropertiesSelected({ newRoomUrl });
     console.log("URL is:", newRoomUrl);
@@ -142,7 +148,20 @@ export default class FrameTriggerNodeEditor extends Component {
               onChange={this.onChangeChannel} />
           </InputGroup>
         )}
-        {node.triggerType !== TriggerType.MEGAPHONE && node.triggerType !== TriggerType.SNAP && node.triggerType !== TriggerType.AUDIOZONE && node.triggerType !== TriggerType.ROOM && (
+        {node.triggerType === TriggerType.SCALE && (
+          <InputGroup
+            name="Scale"
+            info="Define a new scale">
+            <NumericInput
+              min={0.01}
+              smallStep={0.01}
+              mediumStep={0.1}
+              largeStep={1}
+              value={node.size}
+              onChange={this.onChangeScale} />
+          </InputGroup>
+        )}
+        {node.triggerType !== TriggerType.MEGAPHONE && node.triggerType !== TriggerType.SNAP && node.triggerType !== TriggerType.AUDIOZONE && node.triggerType !== TriggerType.ROOM && node.triggerType !== TriggerType.SCALE && (
           // do not ask for a target if it is a megphone trigger
           <>
             <InputGroup name="Target">

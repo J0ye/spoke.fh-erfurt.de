@@ -58,8 +58,8 @@ import FrameTriggerNodeEditor from "./ui/properties/FrameTriggerNodeEditor";
 import BottleNode from "./editor/nodes/BottleNode";
 import BottleNodeEditor from "./ui/properties/BottleNodeEditor";
 
-//import ButtonNode from "./editor/nodes/ButtonNode";
-//import ButtonNodeEditor from "./ui/properties/ButtonNodeEditor";
+import ButtonNode from "./editor/nodes/ButtonNode";
+import ButtonNodeEditor from "./ui/properties/ButtonNodeEditor";
 
 import SketchfabSource from "./ui/assets/sources/SketchfabSource";
 import PolySource from "./ui/assets/sources/PolySource";
@@ -103,6 +103,7 @@ export function createEditor(api, settings) {
 
   editor.registerNode(BottleNode, BottleNodeEditor);
   editor.registerNode(FrameTriggerNode, FrameTriggerNodeEditor);
+  editor.registerNode(ButtonNode, ButtonNodeEditor);
 
   editor.registerSource(new ElementsSource(editor));
   editor.registerSource(new MyAssetsSource(editor));
