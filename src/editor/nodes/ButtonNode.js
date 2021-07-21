@@ -9,7 +9,8 @@ export const ButtonType = {
   TELEPORT: "teleport",
   VISIBILITY: "visibility",
   MEGAPHONE: "megaphone",
-  ROOM: "Change Room"
+  ROOM: "Change Room",
+  ANIMATION: "Animation"
 };
 
 export default class ButtonNode extends EditorNodeMixin(Object3D) {

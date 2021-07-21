@@ -161,7 +161,7 @@ export default class FrameTriggerNodeEditor extends Component {
               onChange={this.onChangeScale} />
           </InputGroup>
         )}
-        {node.triggerType !== TriggerType.MEGAPHONE && node.triggerType !== TriggerType.SNAP && node.triggerType !== TriggerType.AUDIOZONE && node.triggerType !== TriggerType.ROOM && node.triggerType !== TriggerType.SCALE && (
+        {node.triggerType !== TriggerType.MEGAPHONE && node.triggerType !== TriggerType.SNAP && node.triggerType !== TriggerType.AUDIOZONE && node.triggerType !== TriggerType.ROOM && node.triggerType !== TriggerType.SCALE && node.triggerType !== TriggerType.VISIBILITY && (
           // do not ask for a target if it is a megphone trigger
           <>
             <InputGroup name="Target">

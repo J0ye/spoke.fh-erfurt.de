@@ -45,7 +45,8 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
       FrameTriggerNode._geometry,
       new ShaderMaterial({
         uniforms: {
-          opacity: { value: 1 }
+          opacity: { value: 1 },
+          colorFlip: { value: 1 }
         },
         vertexShader: `
             varying vec2 vUv;
@@ -68,10 +69,11 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
 
             varying vec2 vUv;
             uniform float opacity;
+            uniform float colorFlip;
             void main() {
               float alpha = max(step(0.45, abs(vUv.x - 0.5)), step(0.45, abs(vUv.y - 0.5))) - 0.5;
               if( ( bayerDither4x4( floor( mod( gl_FragCoord.xy, 4.0 ) ) ) ) / 16.0 >= alpha * opacity ) discard;
-              gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+              gl_FragColor = vec4(0.9, 1.0, 0.5 * colorFlip, 1.0);
             }
           `,
         side: DoubleSide
@@ -97,10 +99,12 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
 
   onSelect() {
     this.helper.material.uniforms.opacity.value = 1.0;
+    this.helper.material.uniforms.colorFlip.value = 1.0;
   }
 
   onDeselect() {
-    this.helper.material.uniforms.opacity.value = 0.5;
+    this.helper.material.uniforms.opacity.value = 0.7;
+    this.helper.material.uniforms.colorFlip.value = 0.6;
   }
 
   copy(source, recursive = true) {
@@ -165,8 +169,6 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
     this.addGLTFComponent("frame-trigger", {
       triggerType: this.triggerType,
       bounds: new Vector3().copy(this.scale),
-      target: this.gltfIndexForUUID(this.target),
-      targetID: this.target,
       targetName: this.targetName,
       size: this.size,
       cMask: this.cMask,
@@ -174,6 +176,8 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
       newRoomUrl: this.newRoomUrl,
       switchActive: this.switchActive
     });
+    console.log("Exported Frame Trigger:");
+    console.log(this);
     // We use scale to configure bounds, we don't actually want to set the node's scale
     this.scale.setScalar(1);
     //console.log("Exporting with target room: " + this.newRoomUrl);

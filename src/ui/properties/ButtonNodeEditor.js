@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import NodeEditor from "./NodeEditor";
-import { Download } from "styled-icons/fa-solid/Download";
+import { PowerOff } from "styled-icons/fa-solid/PowerOff";
 import InputGroup from "../inputs/InputGroup";
 import SelectInput from "../inputs/SelectInput";
 import BooleanInput from "../inputs/BooleanInput";
@@ -12,7 +12,8 @@ const ButtonTypeOptions = [
   { label: "Megaphone", value: ButtonType.MEGAPHONE },
   { label: "Teleport", value: ButtonType.TELEPORT },
   { label: "Visibility", value: ButtonType.VISIBILITY },
-  { label: "Change Room", value: ButtonType.ROOM }
+  { label: "Change Room", value: ButtonType.ROOM },
+  { label: "Play Animation", value: ButtonType.ANIMATION }
 ];
 
 export default class ButtonNodeEditor extends Component {
@@ -22,7 +23,7 @@ export default class ButtonNodeEditor extends Component {
     multiEdit: PropTypes.bool
   };
 
-  static iconComponent = Download;
+  static iconComponent = PowerOff;
 
   static description = "A button to trigger actions.\n";
 

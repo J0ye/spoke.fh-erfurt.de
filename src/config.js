@@ -61,6 +61,9 @@ import BottleNodeEditor from "./ui/properties/BottleNodeEditor";
 import ButtonNode from "./editor/nodes/ButtonNode";
 import ButtonNodeEditor from "./ui/properties/ButtonNodeEditor";
 
+import StopWatchNode from "./editor/nodes/StopWatchNode";
+import StopWatchNodeEditor from "./ui/properties/StopWatchNodeEditor";
+
 import SketchfabSource from "./ui/assets/sources/SketchfabSource";
 import PolySource from "./ui/assets/sources/PolySource";
 import BingImagesSource from "./ui/assets/sources/BingImagesSource";
@@ -104,6 +107,8 @@ export function createEditor(api, settings) {
   editor.registerNode(BottleNode, BottleNodeEditor);
   editor.registerNode(FrameTriggerNode, FrameTriggerNodeEditor);
   editor.registerNode(ButtonNode, ButtonNodeEditor);
+  editor.registerNode(StopWatchNode, StopWatchNodeEditor);
+
 
   editor.registerSource(new ElementsSource(editor));
   editor.registerSource(new MyAssetsSource(editor));
