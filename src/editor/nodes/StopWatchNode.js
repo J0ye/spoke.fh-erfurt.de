@@ -62,12 +62,14 @@ export default class StopWatchNode extends EditorNodeMixin(Object3D) {
   prepareForExport() {
     super.prepareForExport();
     this.remove(this.helper);
-    this.addGLTFComponent("stopwatch", {
+    this.addGLTFComponent("countdown-timer", {
       href: this.href
     });
     this.addGLTFComponent("networked", {
       id: this.uuid
     });
     this.replaceObject();
+    console.log("Stopwatch: ");
+    console.log(this);
   }
 }

@@ -61,6 +61,9 @@ import BottleNodeEditor from "./ui/properties/BottleNodeEditor";
 import ButtonNode from "./editor/nodes/ButtonNode";
 import ButtonNodeEditor from "./ui/properties/ButtonNodeEditor";
 
+import TextCubeNode from "./editor/nodes/TextCubeNode";
+import TextCubeNodeEditor from "./ui/properties/TextCubeNodeEditor";
+
 import StopWatchNode from "./editor/nodes/StopWatchNode";
 import StopWatchNodeEditor from "./ui/properties/StopWatchNodeEditor";
 
@@ -108,6 +111,7 @@ export function createEditor(api, settings) {
   editor.registerNode(FrameTriggerNode, FrameTriggerNodeEditor);
   editor.registerNode(ButtonNode, ButtonNodeEditor);
   editor.registerNode(StopWatchNode, StopWatchNodeEditor);
+  editor.registerNode(TextCubeNode, TextCubeNodeEditor);
 
 
   editor.registerSource(new ElementsSource(editor));
