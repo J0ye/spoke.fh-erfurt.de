@@ -30,6 +30,7 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
     super(editor);
 
     this.mediaType = MediaType.ALL_2D;
+    this.tagFilter = ""
 
     const box = new Mesh(
       MediaFrameNode._geometry,
@@ -99,6 +100,7 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
     }
 
     this.mediaType = source.mediaType;
+    this.tagFilter = source.tagFilter;
 
     super.copy(source, recursive);
 
@@ -116,7 +118,8 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
   serialize() {
     return super.serialize({
       "media-frame": {
-        mediaType: this.mediaType
+        mediaType: this.mediaType,
+        tagFilter: this.tagFilter
       }
     });
   }
@@ -125,6 +128,7 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
     const node = await super.deserialize(editor, json);
     const mediaFrame = json.components.find(c => c.name === "media-frame");
     node.mediaType = mediaFrame.props.mediaType;
+    node.tagFilter = mediaFrame.props.tagFilter;
     return node;
   }
 
@@ -133,6 +137,7 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
     this.remove(this.helper);
     this.addGLTFComponent("media-frame", {
       mediaType: this.mediaType,
+      tagFilter: this.tagFilter,
       bounds: new Vector3().copy(this.scale)
     });
     // We use scale to configure bounds, we don't actually want to set the node's scale

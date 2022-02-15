@@ -1,7 +1,6 @@
 import {
   Object3D,
   BoxBufferGeometry,
-  PlaneBufferGeometry,
   MeshBasicMaterial,
   ShaderMaterial,
   Mesh,
@@ -34,6 +33,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
     this.triggerType = TriggerType.MEGAPHONE;
     this.target = null;
     this.targetName = null;
+    this.tagFilter = "";
     this.size = 1;
     this.cMask = 4;
     this.channel = 1;
@@ -124,6 +124,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
     this.triggerType = source.triggerType;
     this.target = source.target;
     this.targetName = source.targetName;
+    this.tagFilter = source.tagFilter;
     this.size = source.size;
     this.cMask = source.cMask;
     this.channel = source.channel;
@@ -140,6 +141,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
         target: this.target,
         targetID: this.target,
         targetName: this.targetName,
+        tagFilter: this.tagFilter,
         size: this.size,
         cMask: this.cMask,
         channel: this.channel,
@@ -155,6 +157,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
     node.triggerType = props.triggerType;
     node.target = props.target;
     node.targetName = props.targetName;
+    node.tagFilter = props.tagFilter;
     node.size = props.size;
     node.cMask = props.cMask;
     node.channel = props.channel;
@@ -170,6 +173,7 @@ export default class FrameTriggerNode extends EditorNodeMixin(Object3D) {
       triggerType: this.triggerType,
       bounds: new Vector3().copy(this.scale),
       targetName: this.targetName,
+      tagFilter: this.tagFilter,
       size: this.size,
       cMask: this.cMask,
       channel: this.channel,

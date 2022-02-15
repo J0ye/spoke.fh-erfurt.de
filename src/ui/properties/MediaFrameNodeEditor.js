@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import NodeEditor from "./NodeEditor";
 import { ObjectGroup } from "styled-icons/fa-solid/ObjectGroup";
 import InputGroup from "../inputs/InputGroup";
+import StringInput from "../inputs/StringInput";
 import SelectInput from "../inputs/SelectInput";
 import useSetPropertySelected from "./useSetPropertySelected";
 import { MediaType } from "../../editor/nodes/MediaFrameNode";
@@ -19,10 +20,14 @@ const mediaTypeOptions = [
 export default function MediaFrameNodeEditor(props) {
   const { node, editor } = props;
   const onChangeMediaType = useSetPropertySelected(editor, "mediaType");
+  const onChangeTagFilter = useSetPropertySelected(editor, "tagFilter");
   return (
     <NodeEditor description={MediaFrameNodeEditor.description} {...props}>
       <InputGroup name="Media Types" info="Limit what type of media this frame will capture">
         <SelectInput options={mediaTypeOptions} value={node.mediaType} onChange={onChangeMediaType} />
+      </InputGroup>
+      <InputGroup name="Tag Filter" info="">
+        <StringInput value={node.tagFilter} onChange={onChangeTagFilter}></StringInput>
       </InputGroup>
     </NodeEditor>
   );

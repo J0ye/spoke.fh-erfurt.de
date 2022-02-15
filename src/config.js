@@ -55,6 +55,9 @@ import MediaFrameNodeEditor from "./ui/properties/MediaFrameNodeEditor";
 import FrameTriggerNode from "./editor/nodes/FrameTriggerNode";
 import FrameTriggerNodeEditor from "./ui/properties/FrameTriggerNodeEditor";
 
+import PinCodeNode from "./editor/nodes/PinCodeNode";
+import PinCodeNodeEditor from "./ui/properties/PinCodeNodeEditor";
+
 import BottleNode from "./editor/nodes/BottleNode";
 import BottleNodeEditor from "./ui/properties/BottleNodeEditor";
 
@@ -109,6 +112,7 @@ export function createEditor(api, settings) {
 
   editor.registerNode(BottleNode, BottleNodeEditor);
   editor.registerNode(FrameTriggerNode, FrameTriggerNodeEditor);
+  editor.registerNode(PinCodeNode, PinCodeNodeEditor);
   editor.registerNode(ButtonNode, ButtonNodeEditor);
   editor.registerNode(StopWatchNode, StopWatchNodeEditor);
   editor.registerNode(TextCubeNode, TextCubeNodeEditor);

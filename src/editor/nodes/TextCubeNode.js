@@ -1,4 +1,4 @@
-import { Material, BoxBufferGeometry, Object3D, Mesh, BoxHelper } from "three";
+import { MeshStandardMaterial, BoxBufferGeometry, CircleBufferGeometry, Object3D, Mesh, Color } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
 export default class TextCubeNode extends EditorNodeMixin(Object3D) {
@@ -8,11 +8,10 @@ export default class TextCubeNode extends EditorNodeMixin(Object3D) {
 
   static _geometry = new BoxBufferGeometry();
 
-  static _material = new Material();
-
   constructor(editor) {
     super(editor);
 
+    this.boxColor = new Color(0x000000);
     this.frontText = "Front";
     this.backText = "Back";
     this.rightText = "Right";
@@ -20,13 +19,17 @@ export default class TextCubeNode extends EditorNodeMixin(Object3D) {
     this.topText = "Top";
     this.bottomText = "Bottom";
     this.topBottom = true;
+    this.textColor = new Color(0x000000);
     this.textScale = 1;
 
-    const boxMesh = new Mesh(TextCubeNode._geometry, TextCubeNode._material);
-    const box = new BoxHelper(boxMesh, 0xffff00);
-    box.layers.set(1);
-    this.helper = box;
-    this.add(box);
+    const material = new MeshStandardMaterial({ roughness: 0.7, metalness: 0.5, color: "#FFFFFF" });
+    const mesh = new Mesh(TextCubeNode._geometry, material);
+    this.mesh = mesh;
+    this.add(this.mesh);
+  }
+
+  get color() {
+    return this.mesh.material.color;
   }
 
   copy(source, recursive = true) {
@@ -44,6 +47,10 @@ export default class TextCubeNode extends EditorNodeMixin(Object3D) {
       }
     }
 
+    this.color.copy(source.color);
+    this.boxColor = this.color;
+    this.textColor.copy(source.textColor);
+
     this.frontText = source.frontText;
     this.backText = source.backText;
     this.rightText = source.rightText;
@@ -56,6 +63,7 @@ export default class TextCubeNode extends EditorNodeMixin(Object3D) {
   }
 
   serialize() {
+    this.boxColor = this.color;
     return super.serialize({
       "text-cube": {
         href: this.href,
@@ -100,6 +108,7 @@ export default class TextCubeNode extends EditorNodeMixin(Object3D) {
     this.remove(this.helper);
     this.addGLTFComponent("text-cube", {
       href: this.href,
+      cubeColor: this.cubeColor,
       frontText: this.frontText,
       backText: this.backText,
       rightText: this.rightText,

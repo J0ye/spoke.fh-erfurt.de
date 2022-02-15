@@ -56,12 +56,13 @@ export default class TextCubeNodeEditor extends Component {
     this.props.editor.setPropertiesSelected({ topBottom });
   };
 
-  onChangeBoxColor = boxColor => {
-    this.props.editor.setPropertySelected("boxColor", boxColor);
+  onChangeColor = color => {
+    this.props.editor.setPropertySelected("color", color);
   };
 
   onChangeTextColor = textColor => {
-    this.props.editor.setPropertiesSelected("textColor", textColor);
+    console.log("Setting text color");
+    this.props.editor.setPropertiesSelected({ textColor });
   };
 
   onChangeTextScale = textScale => {
@@ -106,15 +107,15 @@ export default class TextCubeNodeEditor extends Component {
             </InputGroup>
             <InputGroup name="Bottom Text" info="This text will be displayed on the bottom side.">
               <StringInput value={node.bottomText} onChange={this.onChangeBottomText}></StringInput>
-            </InputGroup>
+            </InputGroup>-
           </>
         )}
-        <InputGroup name="Top/Bottom Text"
+        <InputGroup name="Top/Bottom"
           info="Decide fit this cube will show text on the top and bottom side.">
           <BooleanInput value={node.topBottom} onChange={this.onChangeTopBottom} />
         </InputGroup>
         <InputGroup name="Cube Color">
-          <ColorInput value={node.boxColor} onChange={this.onChangeBoxColor} />
+          <ColorInput value={node.color} onChange={this.onChangeColor} />
         </InputGroup>
         <InputGroup name="Text Color">
           <ColorInput value={node.textColor} onChange={this.onChangeTextColor} />
