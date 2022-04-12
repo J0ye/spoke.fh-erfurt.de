@@ -16,7 +16,7 @@ export const ButtonType = {
 export default class ButtonNode extends EditorNodeMixin(Object3D) {
   static componentName = "action-button";
 
-  static nodeName = "Action Button";
+  static nodeName = "action-button";
 
   static async load() {
     buttonTexture = await loadTexture(pink);

@@ -455,34 +455,32 @@ export default class Editor extends EventEmitter {
   }
 
   remapNodeRefsInComponents(collection, nodeDefs, uuidToIndexMap) {
-    try {
-      for (const def of collection) {
-        if (def.extensions && def.extensions.MOZ_hubs_components) {
-          const components = def.extensions.MOZ_hubs_components;
-          for (const componentName in components) {
-            if (!Object.prototype.hasOwnProperty.call(components, componentName)) continue;
+    for (const def of collection) {
+      if (def.extensions && def.extensions.MOZ_hubs_components) {
+        const components = def.extensions.MOZ_hubs_components;
+        for (const componentName in components) {
+          if (!Object.prototype.hasOwnProperty.call(components, componentName)) continue;
 
-            const component = components[componentName];
+          const component = components[componentName];
 
-            for (const propertyName in component) {
-              if (!Object.prototype.hasOwnProperty.call(component, propertyName)) continue;
+          for (const propertyName in component) {
+            if (!Object.prototype.hasOwnProperty.call(component, propertyName)) continue;
 
-              const property = component[propertyName];
+            const property = component[propertyName];
 
-              if (
-                property !== null &&
-                typeof property === "object" &&
-                Object.prototype.hasOwnProperty.call(property, "__gltfIndexForUUID")
-              ) {
-                component[propertyName] = uuidToIndexMap[property.__gltfIndexForUUID];
-              }
+            if (
+              property !== null &&
+              typeof property === "object" &&
+              Object.prototype.hasOwnProperty.call(property, "__gltfIndexForUUID")
+            ) {
+              component[propertyName] = {
+                __mhc_link_type: "node",
+                index: uuidToIndexMap[property.__gltfIndexForUUID]
+              };
             }
           }
         }
       }
-    }
-    catch (error) {
-      console.log(error);
     }
   }
 
@@ -1096,7 +1094,8 @@ export default class Editor extends EventEmitter {
   reparent(object, newParent, newBefore, useHistory = true, emitEvent = true, selectObject = true) {
     if (!object.parent) {
       throw new Error(
-        `${object.nodeName || object.type} "${object.name
+        `${object.nodeName || object.type} "${
+          object.name
         }" has no parent. Reparent only works on objects that are currently in the scene.`
       );
     }

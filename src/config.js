@@ -48,9 +48,8 @@ import AudioNode from "./editor/nodes/AudioNode";
 import AudioNodeEditor from "./ui/properties/AudioNodeEditor";
 import ScenePreviewCameraNode from "./editor/nodes/ScenePreviewCameraNode";
 import ScenePreviewCameraNodeEditor from "./ui/properties/ScenePreviewCameraNodeEditor";
-
-import MediaFrameNode from "./editor/nodes/MediaFrameNode";
-import MediaFrameNodeEditor from "./ui/properties/MediaFrameNodeEditor";
+import AudioZoneNode from "./editor/nodes/AudioZoneNode";
+import AudioZoneNodeEditor from "./ui/properties/AudioZoneNodeEditor";
 
 import FrameTriggerNode from "./editor/nodes/FrameTriggerNode";
 import FrameTriggerNodeEditor from "./ui/properties/FrameTriggerNodeEditor";
@@ -70,8 +69,10 @@ import TextCubeNodeEditor from "./ui/properties/TextCubeNodeEditor";
 import StopWatchNode from "./editor/nodes/StopWatchNode";
 import StopWatchNodeEditor from "./ui/properties/StopWatchNodeEditor";
 
+import MediaFrameNode from "./editor/nodes/MediaFrameNode";
+import MediaFrameNodeEditor from "./ui/properties/MediaFrameNodeEditor";
+
 import SketchfabSource from "./ui/assets/sources/SketchfabSource";
-import PolySource from "./ui/assets/sources/PolySource";
 import BingImagesSource from "./ui/assets/sources/BingImagesSource";
 import BingVideosSource from "./ui/assets/sources/BingVideosSource";
 import TenorSource from "./ui/assets/sources/TenorSource";
@@ -109,6 +110,7 @@ export function createEditor(api, settings) {
   editor.registerNode(SimpleWaterNode, SimpleWaterNodeEditor);
   editor.registerNode(ScenePreviewCameraNode, ScenePreviewCameraNodeEditor);
   editor.registerNode(MediaFrameNode, MediaFrameNodeEditor);
+  editor.registerNode(AudioZoneNode, AudioZoneNodeEditor);
 
   editor.registerNode(BottleNode, BottleNodeEditor);
   editor.registerNode(FrameTriggerNode, FrameTriggerNodeEditor);
@@ -117,13 +119,11 @@ export function createEditor(api, settings) {
   editor.registerNode(StopWatchNode, StopWatchNodeEditor);
   editor.registerNode(TextCubeNode, TextCubeNodeEditor);
 
-
   editor.registerSource(new ElementsSource(editor));
   editor.registerSource(new MyAssetsSource(editor));
   editor.registerSource(new ArchitectureKitSource(api));
   editor.registerSource(new RockKitSource(api));
   editor.registerSource(new SketchfabSource(api));
-  editor.registerSource(new PolySource(api));
   editor.registerSource(new BingImagesSource(api));
   editor.registerSource(new BingVideosSource(api));
   editor.registerSource(new HubsSoundPackSource(editor));

@@ -11,8 +11,7 @@
 
 Then open http://localhost:9090.
 
-When running against a local self-signed cert reticulum server, you'll need to `export NODE_TLS_REJECT_UNAUTHORIZED=0` for publishing to work. 
-If you encounter a **401 Error that maybe is a CORS problem**, just use the logout button in the top right corner to logout and log back in.
+When running against a local self-signed cert reticulum server, you'll need to `export NODE_TLS_REJECT_UNAUTHORIZED=0` for publishing to work.
 
 ## Features
 

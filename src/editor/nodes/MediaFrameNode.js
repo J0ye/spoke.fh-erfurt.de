@@ -56,7 +56,6 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
               vec2 P2 = mod( floor( 0.5  * v ), 2.0 );
               return 4.0 * bayerDither2x2( P1 ) + bayerDither2x2( P2 );
             }
-
             varying vec2 vUv;
             uniform float opacity;
             void main() {
