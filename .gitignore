@@ -20,5 +20,3 @@ test/integration/project/generated
 .tersercache
 results/
 test/reports/*.xml
-.ret.credentials
-.code-workspace

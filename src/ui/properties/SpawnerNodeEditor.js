@@ -4,7 +4,6 @@ import NodeEditor from "./NodeEditor";
 import InputGroup from "../inputs/InputGroup";
 import ModelInput from "../inputs/ModelInput";
 import BooleanInput from "../inputs/BooleanInput";
-import StringInput from "../inputs/StringInput";
 import { Magic } from "styled-icons/fa-solid/Magic";
 import { GLTFInfo } from "../inputs/GLTFInfo";
 import AttributionNodeEditor from "./AttributionNodeEditor";
@@ -27,18 +26,11 @@ export default class SpawnerNodeEditor extends Component {
     this.props.editor.setPropertySelected("applyGravity", applyGravity);
   };
 
-  onChangeSpawnedMediaTag = spawnedMediaTag => {
-    this.props.editor.setPropertySelected("spawnedMediaTag", spawnedMediaTag);
-  };
-
   render() {
     const node = this.props.node;
 
     return (
       <NodeEditor {...this.props} description={SpawnerNodeEditor.description}>
-        <InputGroup name="Tag of Spawned Object" info="">
-          <StringInput value={node.spawnedMediaTag} onChange={this.onChangeSpawnedMediaTag}></StringInput>
-        </InputGroup>
         <InputGroup name="Model Url">
           <ModelInput value={node.src} onChange={this.onChangeSrc} />
         </InputGroup>

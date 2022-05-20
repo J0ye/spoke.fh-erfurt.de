@@ -50,6 +50,27 @@ import ScenePreviewCameraNode from "./editor/nodes/ScenePreviewCameraNode";
 import ScenePreviewCameraNodeEditor from "./ui/properties/ScenePreviewCameraNodeEditor";
 import AudioZoneNode from "./editor/nodes/AudioZoneNode";
 import AudioZoneNodeEditor from "./ui/properties/AudioZoneNodeEditor";
+import MirrorNode from "./editor/nodes/MirrorNode";
+import MirrorNodeEditor from "./ui/properties/MirrorNodeEditor";
+
+import MediaFrameNode from "./editor/nodes/MediaFrameNode";
+import MediaFrameNodeEditor from "./ui/properties/MediaFrameNodeEditor";
+
+import SketchfabSource from "./ui/assets/sources/SketchfabSource";
+import BingImagesSource from "./ui/assets/sources/BingImagesSource";
+import BingVideosSource from "./ui/assets/sources/BingVideosSource";
+import TenorSource from "./ui/assets/sources/TenorSource";
+import ElementsSource from "./ui/assets/sources/ElementsSource";
+import MyAssetsSource from "./ui/assets/sources/MyAssetsSource";
+import ArchitectureKitSource from "./ui/assets/sources/ArchitectureKitSource";
+import RockKitSource from "./ui/assets/sources/RockKitSource";
+import HubsSoundPackSource from "./ui/assets/sources/HubsSoundPackSource";
+
+import TroikaTextNode from "./editor/nodes/TroikaTextNode";
+import TroikaTextNodeEditor from "./ui/properties/TroikaTextNodeEditor";
+
+
+
 
 import FrameTriggerNode from "./editor/nodes/FrameTriggerNode";
 import FrameTriggerNodeEditor from "./ui/properties/FrameTriggerNodeEditor";
@@ -72,15 +93,7 @@ import StopWatchNodeEditor from "./ui/properties/StopWatchNodeEditor";
 import MediaFrameNode from "./editor/nodes/MediaFrameNode";
 import MediaFrameNodeEditor from "./ui/properties/MediaFrameNodeEditor";
 
-import SketchfabSource from "./ui/assets/sources/SketchfabSource";
-import BingImagesSource from "./ui/assets/sources/BingImagesSource";
-import BingVideosSource from "./ui/assets/sources/BingVideosSource";
-import TenorSource from "./ui/assets/sources/TenorSource";
-import ElementsSource from "./ui/assets/sources/ElementsSource";
-import MyAssetsSource from "./ui/assets/sources/MyAssetsSource";
-import ArchitectureKitSource from "./ui/assets/sources/ArchitectureKitSource";
-import RockKitSource from "./ui/assets/sources/RockKitSource";
-import HubsSoundPackSource from "./ui/assets/sources/HubsSoundPackSource";
+
 
 export function createEditor(api, settings) {
   const editor = new Editor(api, settings);
@@ -111,6 +124,10 @@ export function createEditor(api, settings) {
   editor.registerNode(ScenePreviewCameraNode, ScenePreviewCameraNodeEditor);
   editor.registerNode(MediaFrameNode, MediaFrameNodeEditor);
   editor.registerNode(AudioZoneNode, AudioZoneNodeEditor);
+  editor.registerNode(TroikaTextNode, TroikaTextNodeEditor);
+  editor.registerNode(MirrorNode, MirrorNodeEditor);
+
+
 
   editor.registerNode(BottleNode, BottleNodeEditor);
   editor.registerNode(FrameTriggerNode, FrameTriggerNodeEditor);
@@ -118,6 +135,8 @@ export function createEditor(api, settings) {
   editor.registerNode(ButtonNode, ButtonNodeEditor);
   editor.registerNode(StopWatchNode, StopWatchNodeEditor);
   editor.registerNode(TextCubeNode, TextCubeNodeEditor);
+
+
 
   editor.registerSource(new ElementsSource(editor));
   editor.registerSource(new MyAssetsSource(editor));
