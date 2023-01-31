@@ -9,7 +9,7 @@
 - `yarn install`
 - `yarn start`
 
-Then open http://localhost:9090.
+Then open https://localhost:9090.
 
 When running against a local self-signed cert reticulum server, you'll need to `export NODE_TLS_REJECT_UNAUTHORIZED=0` for publishing to work.
 
